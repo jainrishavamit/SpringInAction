@@ -21,11 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
-
 @RestController
 public class MyFirstController {
     @Autowired
@@ -47,7 +42,7 @@ public class MyFirstController {
     }
 
     @GetMapping("/getBook/{id}")
-    public ResponseEntity<Object> getMethodName(@PathVariable int id) {
+    public ResponseEntity<Book> getMethodName(@PathVariable int id) {
         return bookService.findById(id);
     }
     

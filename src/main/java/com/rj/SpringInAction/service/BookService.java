@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rj.SpringInAction.exceptions.BookAlreadyExistsException;
+import com.rj.SpringInAction.exceptions.BookNotFoundException;
 import com.rj.SpringInAction.models.Book;
 import com.rj.SpringInAction.repository.BookRepository;
 
@@ -21,7 +23,8 @@ public class BookService {
     public ResponseEntity<Object> saveBook(Book book) {
         Book savedBook = bookRepositoryBackedByHashMap.save(book);
         if (Objects.isNull(savedBook)) {
-            return ResponseEntity.badRequest().body("Book with Id : "+book.getId()+" already exists");
+            // return ResponseEntity.badRequest().body("Book with Id : "+book.getId()+" already exists"); Using the exception handler instead
+            throw new BookAlreadyExistsException("Book with Id : "+book.getId()+" already exists");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
@@ -30,12 +33,13 @@ public class BookService {
         return bookRepositoryBackedByHashMap.findAll();
     }
 
-    public ResponseEntity<Object> findById(int id) {
+    public ResponseEntity<Book> findById(int id) {
         Optional<Book> returnedBook = bookRepositoryBackedByHashMap.findById(id);
         if(returnedBook.isPresent()) {
-            return ResponseEntity.ok().body(returnedBook);
+            return ResponseEntity.ok().body(returnedBook.get());
         }
-        return ResponseEntity.notFound().build();
+        // return ResponseEntity.notFound().build(); Using exceptionHandler instead
+        throw new BookNotFoundException("Book not found with id : "+id);
 
     }
 
@@ -44,9 +48,11 @@ public class BookService {
         if(!foundBooks.isEmpty()) {
             return ResponseEntity.ok().body(foundBooks);
         }
-        return ResponseEntity.notFound().build();
+        // return ResponseEntity.notFound().build(); Using exceptionHandler instead
+        throw new BookNotFoundException("No Books found with title : \""+title+"\"");
     }
 
+    //Using <Object> in order to have flexibility of returning Book or String for error reason [not using exception handler]
     public ResponseEntity<Object> updateBook(int id, Book book) {
         Optional<Book> updatedBook = bookRepositoryBackedByHashMap.updateBook(id,book);
         if(updatedBook.isPresent())
@@ -61,5 +67,4 @@ public class BookService {
         return ResponseEntity.badRequest().body("Book with Id : "+id+" doesn't exists");
     }
 
-    
 }
