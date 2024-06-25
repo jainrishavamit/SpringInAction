@@ -10,7 +10,7 @@ import com.rj.SpringInAction.exceptions.BookAlreadyExistsException;
 import com.rj.SpringInAction.exceptions.BookNotFoundException;
 
 @RestControllerAdvice
-public class MyCustomExceptionHandler {
+public class BooksExceptionHandler {
 
     // using the ResponseBody and specifiying the status using the annotation
     // @ResponseBody [Not required as we are using RestControllerAdvice, instead of
