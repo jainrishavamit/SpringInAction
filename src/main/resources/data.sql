@@ -27,6 +27,7 @@ INSERT into user_role (roles_role_id , user_user_id) values
 
 insert into product (price,p_name,category_id ,  seller_id ) values 
 (29190,'Apple ipad 10.2',2,3),
+(39190,'Apple ipad 11.3',2,3),
 (10,'Crocin pain',5,4);
 
 INSERT into  cart_products (cart_id, product_id, quantity) values
