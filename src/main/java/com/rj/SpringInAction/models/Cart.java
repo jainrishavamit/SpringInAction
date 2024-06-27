@@ -2,6 +2,8 @@ package com.rj.SpringInAction.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +28,7 @@ public class Cart {
     //this is not created in user and so no need to use mapped by
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cartOwner", referencedColumnName = "userId")
+    @JsonIgnore
     User user;
 
     //bidirectional mapping between cart and cart products

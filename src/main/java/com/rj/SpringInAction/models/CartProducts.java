@@ -1,5 +1,7 @@
 package com.rj.SpringInAction.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class CartProducts {
     //foreign key will be created here
     @ManyToOne
     @JoinColumn(name = "cartId",referencedColumnName = "cId")
+    @JsonIgnore
     Cart cart;
 
     @ManyToOne(fetch = FetchType.EAGER)

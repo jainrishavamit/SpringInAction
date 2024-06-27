@@ -1,6 +1,7 @@
 package com.rj.SpringInAction.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,12 @@ public class ProductService {
 
         //using JPA provided method
         return ResponseEntity.ok().body(productRepository.findAllBypNameContainingIgnoringCaseOrCategoryCatNameContainingIgnoringCase(keyword,keyword));
+    }
+
+    public ResponseEntity<List<Product>> findProductByUsername(String username, Integer id) {
+        if(Objects.isNull(id))
+            return ResponseEntity.ok().body(productRepository.findAllBySellerUsername(username));
+        return ResponseEntity.ok().body(productRepository.findAllBypIdAndSellerUsername(id, username));
     }
 
 }
