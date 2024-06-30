@@ -28,7 +28,7 @@ import jakarta.security.auth.message.config.AuthConfigProvider;
 
 @Configuration
 @EnableWebSecurity
-public class MySecurityController {
+public class MySecurityConfigurations {
     
     @Autowired
     UserRepository userRepository;
