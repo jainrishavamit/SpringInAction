@@ -6,11 +6,10 @@ import com.rj.SpringInAction.models.Cart;
 import com.rj.SpringInAction.models.LoginRequestDto;
 import com.rj.SpringInAction.models.LoginResponseDto;
 import com.rj.SpringInAction.models.Product;
+import com.rj.SpringInAction.models.User;
 import com.rj.SpringInAction.service.CartService;
 import com.rj.SpringInAction.service.LoginService;
 import com.rj.SpringInAction.service.ProductService;
-
-import jakarta.websocket.server.PathParam;
 
 import java.util.List;
 
@@ -48,13 +47,13 @@ public class MyStroreController {
 
     @GetMapping("/api/auth/consumer/cart")
     public ResponseEntity<List<Cart>> getCartOfConsumer() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        String username = ((User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal())).getUsername();
         return cartService.getConsumerCart(username);
     }
 
     @GetMapping({"api/auth/seller/product/{id}","api/auth/seller/product","api/auth/seller/product/"})
     public ResponseEntity<List<Product>> getMethodName(@PathVariable(required = false) Integer id) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        String username = ((User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal())).getUsername();
         return  productService.findProductByUsername(username,id);
     }
     
