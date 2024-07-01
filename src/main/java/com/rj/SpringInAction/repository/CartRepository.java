@@ -10,5 +10,6 @@ import com.rj.SpringInAction.models.Cart;
 @Repository
 public interface CartRepository extends JpaRepository<Cart,Integer>{
     List<Cart> findAllByUserUsername(String username);
+    Cart findByUserUsername(String username);
 
 }
