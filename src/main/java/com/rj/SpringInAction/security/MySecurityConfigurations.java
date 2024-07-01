@@ -37,7 +37,8 @@ public class MySecurityConfigurations {
     @Bean
     SecurityFilterChain mySecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(httpRequest -> {
-            httpRequest.requestMatchers("/api/public/**").permitAll();
+            httpRequest.requestMatchers("/api/public/**","/error").permitAll()
+                .requestMatchers("/v3/**", "/swagger-ui/**").permitAll();
             httpRequest.requestMatchers("/h2-console/**").permitAll();
             httpRequest.requestMatchers("/api/auth/consumer/**").hasRole("CONSUMER");
             httpRequest.requestMatchers("/api/auth/seller/**").hasRole("SELLER");
