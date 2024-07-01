@@ -24,6 +24,7 @@ public class MySecurityConfigBeans {
      *
      * Creating a anonymous class for the UserDetailService interface which implements following method, using lamda
      * UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+     * [This can be done by creating the separate class as well.]
      *      
      * @return an anonymous instance of the UserDetailsService interface
      */

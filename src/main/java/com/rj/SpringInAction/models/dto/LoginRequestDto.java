@@ -1,4 +1,4 @@
-package com.rj.SpringInAction.models;
+package com.rj.SpringInAction.models.dto;
 
 import lombok.Data;
 

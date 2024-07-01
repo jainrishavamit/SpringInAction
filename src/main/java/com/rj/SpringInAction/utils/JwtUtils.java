@@ -49,15 +49,6 @@ public class JwtUtils {
             UserDetails userDetails,
             long expiration
     ) {
-        System.out.println("from token : "+userDetails.toString());
-        System.out.println(Jwts.builder()
-        .setSubject(userDetails.getUsername())
-        .setExpiration(new Date(expiration))
-        .setIssuedAt(new Date())
-        .signWith(getSignInKey(),SignatureAlgorithm.HS256)
-        .setClaims(extraClaims)
-        .compact());
-
         return Jwts.builder()
             .setClaims(extraClaims)
             .setSubject(userDetails.getUsername())
@@ -88,7 +79,6 @@ public class JwtUtils {
     }
 
     private Key getSignInKey() {
-        //need to look into in bit details
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
