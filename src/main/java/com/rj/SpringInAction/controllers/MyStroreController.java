@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,12 +47,14 @@ public class MyStroreController {
     
 
     @GetMapping("/api/auth/consumer/cart")
-    public ResponseEntity<List<Cart>> getCartOfConsumer(@RequestParam(defaultValue = "jack") String username) {
+    public ResponseEntity<List<Cart>> getCartOfConsumer() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         return cartService.getConsumerCart(username);
     }
 
     @GetMapping({"api/auth/seller/product/{id}","api/auth/seller/product","api/auth/seller/product/"})
-    public ResponseEntity<List<Product>> getMethodName(@RequestParam(defaultValue = "apple") String username, @PathVariable(required = false) Integer id) {
+    public ResponseEntity<List<Product>> getMethodName(@PathVariable(required = false) Integer id) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         return  productService.findProductByUsername(username,id);
     }
     
